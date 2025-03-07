@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+    #!/usr/bin/env bash
 # Script that configures Nginx to a new Ubuntu machine
 
 sudo apt-get update
