@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
-#Fix nginx default files. Symbolic link is broken.
-cat etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default
-sudo service nginx restart
-rm /run/nginx.pid
+# Ensure Nginx is installed
+sudo apt update -y
+sudo apt install -y nginx
+
+# Ensure the default site config is enabled
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+# Modify Nginx configuration to explicitly listen on 0.0.0.0:80
+sudo sed -i 's/listen 80 default_server;/listen 0.0.0.0:80 default_server;/' /etc/nginx/sites-available/default
+sudo sed -i 's/listen \[::\]:80 default_server;/listen [::]:80 default_server;/' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply changes
+sudo systemctl restart nginx
+
+# Ensure Nginx starts on boot
+sudo systemctl enable nginx
+
