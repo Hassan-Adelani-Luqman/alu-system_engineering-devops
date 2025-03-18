@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Fix nginx default files. Symbolic link is broken.
 
-rm /etc/nginx/sites-enabled/default
-
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-
-service nginx restart
+sudo apt-get update -y
+sudo apt-get install -y nginx
+sudo service nginx enable
+sudo service nginx start
